@@ -6,22 +6,26 @@ find_package(catkin
   rospy
   std_msgs
   message_generation
+  geometry_msgs
 )
 
 add_message_files(
   FILES
-  ADCPacketRaw.msg
+  LEDMarkers.msg
 )
 
 generate_messages(
   DEPENDENCIES
+  geometry_msgs
   std_msgs
 )
 
 catkin_package(
   CATKIN_DEPENDS
-  rospy 
+  rospy
   std_msgs
+  geometry_msgs 
+  message_runtime
 )
 
 include_directories(

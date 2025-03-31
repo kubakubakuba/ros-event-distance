@@ -1,0 +1,3 @@
+[submodule "event_distance_estimator/pyrecipnps"]
+	path = event_distance_estimator/pyrecipnps
+	url = https://github.com/vrbadev/py-recipnps.git

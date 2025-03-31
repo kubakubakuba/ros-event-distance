@@ -1,39 +1,33 @@
 #!/usr/bin/env python
 
 import rospy
-from event_distance_estimator.msg import ADCPacketRaw
-
 import numpy as np
-import time
+from geometry_msgs.msg import PoseStamped, PointStamped
+from your_vision_package.msg import LEDMarkers  # Custom message for LED positions
+from PnPSolver import PnPSolver  # Your existing PnP solver
 
-class EventDistanceEstimator():
+class LEDDistanceEstimatorNode:
 	def __init__(self):
-		self.node = rospy.init_node("event_distance_estimator")
+		rospy.init_node("led_distance_estimator")
+		
+		self.pnp_solver = PnPSolver()
 
-		# change this
-		self.com_port = rospy.get_param("~com_port")
-		self.com_baud = int(rospy.get_param("~com_baud"))
-		self.com_cts = rospy.get_param("~com_cts")
-		self.pga_gain = rospy.get_param("~pga_gain")
-		self.pga_offset = rospy.get_param("~pga_offset")
-		self.adc_channel = rospy.get_param("~adc_channel")
-		self.adc_freq = rospy.get_param("~adc_freq")
-		self.adc_samples_per_packet = rospy.get_param("~adc_samples_per_packet")
-		self.adc_delim_seq = rospy.get_param("~adc_delim_seq")
-		self.gain_adjustment_period = rospy.get_param("~gain_adjustment_period")
-		self.settings_print_period = rospy.get_param("~settings_print_period")
+		self.led_sub = rospy.Subscriber("/detected_leds", LEDMarkers, self.led_callback)
+		
+		self.pose_pub = rospy.Publisher("/estimated_pose", PoseStamped, queue_size=1)
+		self.distance_pub = rospy.Publisher("/estimated_distance", PointStamped, queue_size=1)
+		
+		rospy.loginfo("LED Distance Estimator initialized")
 
-		self.total_packet_bytes = len(self.adc_delim_seq) + 7 + int((2 * 3 * self.adc_samples_per_packet) // 4) + 2
+	def led_callback(self, msg):
+		pass
 
-		self.pub = rospy.Publisher("/event_distance_estimator_data", ADCPacketRaw, queue_size=1)
-
-	def run(self):
-		rate = rospy.Rate(1)
-		while not rospy.is_shutdown():
-			# process the info
-			pass
+	def publish_results(self, position, rotation):
+		pass
 
 if __name__ == '__main__':
-	estimator = EventDistanceEstimator()
-	estimator.run()
-	rospy.spin()
+	try:
+		node = LEDDistanceEstimatorNode()
+		rospy.spin()
+	except rospy.ROSInterruptException:
+		pass
