@@ -3,7 +3,7 @@
 import rospy
 import numpy as np
 from geometry_msgs.msg import PoseStamped, PointStamped
-from your_vision_package.msg import LEDMarkers
+from vision_package.msg import LEDMarkers
 from PnPSolver import PnPSolver
 
 class LEDDistanceEstimatorNode:
