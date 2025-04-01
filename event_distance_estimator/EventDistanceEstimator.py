@@ -3,8 +3,8 @@
 import rospy
 import numpy as np
 from geometry_msgs.msg import PoseStamped, PointStamped
-from your_vision_package.msg import LEDMarkers  # Custom message for LED positions
-from PnPSolver import PnPSolver  # Your existing PnP solver
+from your_vision_package.msg import LEDMarkers
+from PnPSolver import PnPSolver
 
 class LEDDistanceEstimatorNode:
 	def __init__(self):
@@ -23,6 +23,9 @@ class LEDDistanceEstimatorNode:
 		pass
 
 	def publish_results(self, position, rotation):
+		pass
+
+	def _estimate_distance(self, positions, indices):
 		pass
 
 if __name__ == '__main__':
