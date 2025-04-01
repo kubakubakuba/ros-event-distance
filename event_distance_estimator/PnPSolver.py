@@ -29,8 +29,6 @@ class PnPSolver:
 		self.inlier_dist_threshold = 2.0
 		self.probability = 0.99
 
-
-
 	def _get_cam_rays(self, image_points):
 		"""
 			Converts the image pixels to the corresponding unit sphere rays, based on the camera calibration parameters.
