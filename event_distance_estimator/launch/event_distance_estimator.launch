@@ -1,21 +1,8 @@
 <launch>
+	<env name="PYTHONPATH" value="$(find event_distance_estimator):$(env PYTHONPATH)"/>
+	<arg name="calibration_file" default="$(find event_distance_estimator)/calibration.json"/>
 
-<node name="event_distance_estimator" pkg="event_distance_estimator" type="EventDistanceEstimator.py" output="screen">
-    <!-- <param name="com_port" type="string" value="/dev/ttyACM0" /> 
-    <param name="com_baud" type="int" value="4000000" /> 
-    <param name="com_cts" type="bool" value="true" /> 
-
-    <rosparam param="adc_delim_seq">[255,255,255,255,255]</rosparam>
-
-    <param name="pga_gain" type="double" value="157" />
-    <param name="pga_offset" type="double" value="12.7" />
-    <param name="adc_channel" type="int" value="1" />
-
-    <param name="gain_adjustment_period" type="double" value="0.0" />
-    <param name="settings_print_period" type="double" value="1.0" />
-
-    <param name="adc_freq" type="int" value="160000" /> 
-    <param name="adc_samples_per_packet" type="int" value="500" />  -->
-</node>
-
+	<node name="event_distance_estimator" pkg="event_distance_estimator" type="EventDistanceEstimator.py" output="screen">
+		<param name="calibration_file" type="string" value="$(arg calibration_file)"/>
+	</node>
 </launch>

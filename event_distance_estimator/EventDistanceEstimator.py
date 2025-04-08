@@ -10,7 +10,7 @@ class LEDDistanceEstimatorNode:
 	def __init__(self):
 		rospy.init_node("led_distance_estimator")
 		
-		self.pnp_solver = PnPSolver(calib_path="calibration.json", uav_size=425)
+		self.pnp_solver = PnPSolver(calib_path=rospy.get_param('~calibration_file'), uav_size=425)
 
 		self.led_sub = rospy.Subscriber("/detected_leds", LEDMarkers, self.led_callback)
 		

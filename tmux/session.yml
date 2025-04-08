@@ -1,0 +1,25 @@
+name: ros_nodes
+root: ~/user_ros_workspace
+socket_name: ros_socket
+attach: false
+tmux_options: -f /etc/ctu-mrs/tmux.conf
+
+pre_window: |
+  source /opt/ros/noetic/setup.bash
+  source ~/user_ros_workspace/devel/setup.bash
+
+windows:
+  - roscore:
+      layout: tiled
+      panes:
+        - roscore
+
+  - dummy_led:
+      layout: tiled
+      panes:
+        - roslaunch dummy_led_publisher dummy_led_publisher.launch --wait
+
+  - distance_estimator:
+      layout: tiled
+      panes:
+        - roslaunch event_distance_estimator event_distance_estimator.launch --wait
