@@ -14,12 +14,17 @@ windows:
       panes:
         - roscore
 
-  - dummy_led:
+  - dummy_publisher:
       layout: tiled
       panes:
         - roslaunch dummy_led_publisher dummy_led_publisher.launch --wait
-
+  
   - distance_estimator:
       layout: tiled
       panes:
         - roslaunch event_distance_estimator event_distance_estimator.launch --wait
+
+  - visualization:
+      layout: tiled
+      panes:
+        - roslaunch distance_visualizer distance_visualizer.launch --wait

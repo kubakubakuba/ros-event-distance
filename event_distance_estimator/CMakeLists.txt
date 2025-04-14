@@ -7,6 +7,7 @@ find_package(catkin
   std_msgs
   message_generation
   geometry_msgs
+  visualization_msgs
 )
 
 add_message_files(

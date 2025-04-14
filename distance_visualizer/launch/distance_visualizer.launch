@@ -1,0 +1,4 @@
+<launch>
+	<node name="distance_visualizer" pkg="distance_visualizer" type="DistanceVisualizer.py" output="screen" />
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find distance_visualizer)/rviz/distance_visualization.rviz" />
+</launch>

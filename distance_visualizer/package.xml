@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>distance_visualizer</name>
+  <version>0.0.0</version>
+  <description>The distance_visualizer package</description>
+
+  <maintainer email="pelcjaku@fel.cvut.cz">Jakub Pelc</maintainer>
+  <license>GPLv2</license>
+  <url type="website">https://github.com/kubakubakuba/ros-event-distance</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>visualization_msgs</exec_depend>
+
+  <export>
+
+  </export>
+  
+</package>

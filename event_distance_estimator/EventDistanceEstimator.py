@@ -49,15 +49,19 @@ class LEDDistanceEstimatorNode:
 		return quaternion_from_matrix(R_4x4)
 
 	def publish_results(self, position, rotation_matrix, distance):
+		# Convert position from mm to meters
+		position_meters = [coord / 1000.0 for coord in position]
+		distance_meters = distance / 1000.0
+
 		quaternion = self.rotation_matrix_to_quaternion(rotation_matrix)
 		
 		pose_msg = PoseStamped()
 		pose_msg.header.stamp = rospy.Time.now()
 		pose_msg.header.frame_id = "camera_frame"
 		
-		pose_msg.pose.position.x = position[0]
-		pose_msg.pose.position.y = position[1]
-		pose_msg.pose.position.z = position[2]
+		pose_msg.pose.position.x = position_meters[0]
+		pose_msg.pose.position.y = position_meters[1]
+		pose_msg.pose.position.z = position_meters[2]
 		
 		pose_msg.pose.orientation.x = quaternion[0]
 		pose_msg.pose.orientation.y = quaternion[1]
@@ -70,13 +74,13 @@ class LEDDistanceEstimatorNode:
 		distance_msg.header.stamp = rospy.Time.now()
 		distance_msg.header.frame_id = "camera_frame"
 		
-		distance_msg.point.x = position[0]
-		distance_msg.point.y = position[1]
-		distance_msg.point.z = position[2]
+		distance_msg.point.x = position_meters[0]
+		distance_msg.point.y = position_meters[1]
+		distance_msg.point.z = position_meters[2]
 		
 		self.distance_pub.publish(distance_msg)
 
-		rospy.loginfo(f"Published pose: {position}, distance: {distance:.2f} m, with quaternion: {quaternion}")
+		rospy.loginfo(f"Published pose: {position_meters}, distance: {distance_meters:.2f} m, with quaternion: {quaternion}")
 
 if __name__ == '__main__':
 	try:

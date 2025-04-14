@@ -1,6 +1,6 @@
 <launch>
 	<env name="PYTHONPATH" value="$(find event_distance_estimator):$(env PYTHONPATH)"/>
-	<arg name="calibration_file" default="$(find event_distance_estimator)/calibration.json"/>
+	<arg name="calibration_file" default="$(find event_distance_estimator)/calib.json"/>
 
 	<node name="event_distance_estimator" pkg="event_distance_estimator" type="EventDistanceEstimator.py" output="screen">
 		<param name="calibration_file" type="string" value="$(arg calibration_file)"/>
