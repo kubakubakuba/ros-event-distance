@@ -25,6 +25,7 @@ windows:
         - roslaunch event_distance_estimator event_distance_estimator.launch --wait
 
   - visualization:
-      layout: tiled
+      layout: even-horizontal
       panes:
         - roslaunch event_distance_estimator distance_visualizer.launch --wait
+        - rqt_plot /estimated_distance/data
