@@ -1,0 +1,4 @@
+<launch>
+	<node name="position_visualizer" pkg="event_distance_estimator" type="PositionVisualizer.py" output="screen" />
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find event_distance_estimator)/rviz/position_visualization2.rviz" />
+</launch>

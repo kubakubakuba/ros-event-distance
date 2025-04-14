@@ -4,14 +4,14 @@ from geometry_msgs.msg import PoseStamped, Point
 from visualization_msgs.msg import Marker
 import tf.transformations as tf
 
-class DistanceVisualizer:
+class PositionVisualizer:
 	def __init__(self):
-		rospy.init_node('uav_visualizer_rviz')
+		rospy.init_node('position_visualizer')
 		
 		self.pose_sub = rospy.Subscriber("/estimated_pose", PoseStamped, self.pose_callback)
 		self.marker_pub = rospy.Publisher("/visualization_marker", Marker, queue_size=10)
 		
-		rospy.loginfo("UAV RViz Visualizer ready")
+		rospy.loginfo("Position Visualizer ready")
 
 	def pose_callback(self, msg):
 		uav_center_marker = Marker()
@@ -149,7 +149,7 @@ class DistanceVisualizer:
 
 if __name__ == '__main__':
 	try:
-		visualizer = DistanceVisualizer()
+		visualizer = PositionVisualizer()
 		rospy.spin()
 	except rospy.ROSInterruptException:
 		pass
