@@ -6,7 +6,7 @@ from event_distance_estimator.msg import LEDMarkers
 from PnPSolver import PnPSolver
 from tf.transformations import quaternion_from_matrix
 
-class LEDDistanceEstimatorNode:
+class LEDDistanceEstimator:
 	def __init__(self):
 		rospy.init_node("led_distance_estimator")
 		
@@ -85,7 +85,7 @@ class LEDDistanceEstimatorNode:
 if __name__ == '__main__':
 	try:
 		rospy.loginfo("Starting LED Distance Estimator")
-		node = LEDDistanceEstimatorNode()
+		node = LEDDistanceEstimator()
 		rospy.spin()
 	except rospy.ROSInterruptException:
 		pass

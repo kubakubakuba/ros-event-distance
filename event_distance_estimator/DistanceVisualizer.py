@@ -30,10 +30,10 @@ class DistanceVisualizer:
 		uav_center_marker.color.g = 1.0
 		uav_center_marker.color.b = 1.0
 		uav_center_marker.color.a = 1.0
-		
+
 		uav_center_marker.lifetime = rospy.Duration()
 
-		# Camera Marker
+		# camera
 		camera_marker = Marker()
 		camera_marker.header = msg.header
 		camera_marker.ns = "camera"
@@ -67,7 +67,7 @@ class DistanceVisualizer:
 		vector_marker.type = Marker.LINE_STRIP
 		vector_marker.action = Marker.ADD
 		
-		vector_marker.scale.x = 0.05  # Line width
+		vector_marker.scale.x = 0.05  #line width
 		
 		vector_marker.color.r = 0.0
 		vector_marker.color.g = 1.0
@@ -81,6 +81,7 @@ class DistanceVisualizer:
 
 		vector_marker.lifetime = rospy.Duration()
 
+		#draw the UAV structure
 		square_marker = Marker()
 		square_marker.header = msg.header
 		square_marker.ns = "uav_frame"
@@ -88,44 +89,41 @@ class DistanceVisualizer:
 		square_marker.type = Marker.LINE_LIST
 		square_marker.action = Marker.ADD
 
-		square_marker.scale.x = 0.05  # Line width
+		square_marker.scale.x = 0.05  #line width
 
 		square_marker.color.r = 1.0
 		square_marker.color.g = 0.0
 		square_marker.color.b = 0.0
 		square_marker.color.a = 1.0
 
-		# Define square points in UAV's local frame (425mm apart, converted to meters)
 		half_size = 0.425 / 2
 		square_points = [
 			Point(half_size, half_size, 0.0),
 			Point(-half_size, half_size, 0.0),
 			Point(-half_size, -half_size, 0.0),
 			Point(half_size, -half_size, 0.0),
-			Point(half_size, half_size, 0.0)  # Close the square
+			Point(half_size, half_size, 0.0)
 		]
 
-		# Transform square points to the UAV's pose
+		#transform the UAV structure points to the global frame
 		transformed_points = []
 		for point in square_points:
 			transformed_point = self.transform_point(point, msg.pose)
 			transformed_points.append(transformed_point)
 
-		# Add lines connecting the square points (including diagonals)
+		#add connections
 		for i in range(len(transformed_points) - 1):
 			square_marker.points.append(transformed_points[i])
 			square_marker.points.append(transformed_points[i + 1])
 
-		# Add diagonal lines
-		square_marker.points.append(transformed_points[0])  # Top-right to bottom-left
+		square_marker.points.append(transformed_points[0])
 		square_marker.points.append(transformed_points[2])
 
-		square_marker.points.append(transformed_points[1])  # Top-left to bottom-right
+		square_marker.points.append(transformed_points[1])
 		square_marker.points.append(transformed_points[3])
 
 		square_marker.lifetime = rospy.Duration()
 
-		# Publish all markers
 		self.marker_pub.publish(uav_center_marker)
 		self.marker_pub.publish(camera_marker)
 		self.marker_pub.publish(vector_marker)
@@ -133,7 +131,6 @@ class DistanceVisualizer:
 
 	def transform_point(self, point, pose):
 		"""Transform a point from the UAV's local frame to the global frame."""
-		# Convert pose orientation to a rotation matrix
 		quaternion = [
 			pose.orientation.x,
 			pose.orientation.y,
@@ -142,7 +139,6 @@ class DistanceVisualizer:
 		]
 		rotation_matrix = tf.quaternion_matrix(quaternion)
 
-		# Apply rotation and translation
 		local_point = [point.x, point.y, point.z, 1.0]
 		global_point = rotation_matrix.dot(local_point)
 		global_point[0] += pose.position.x

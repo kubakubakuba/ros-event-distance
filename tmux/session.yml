@@ -17,7 +17,7 @@ windows:
   - dummy_publisher:
       layout: tiled
       panes:
-        - roslaunch dummy_led_publisher dummy_led_publisher.launch --wait
+        - roslaunch event_distance_estimator dummy_led_publisher.launch --wait
   
   - distance_estimator:
       layout: tiled
@@ -27,4 +27,4 @@ windows:
   - visualization:
       layout: tiled
       panes:
-        - roslaunch distance_visualizer distance_visualizer.launch --wait
+        - roslaunch event_distance_estimator distance_visualizer.launch --wait

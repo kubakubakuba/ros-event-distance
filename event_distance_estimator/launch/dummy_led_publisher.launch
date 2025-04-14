@@ -1,0 +1,5 @@
+<launch>
+
+<node name="dummy_led_publisher" pkg="event_distance_estimator" type="DummyLedPublisher.py" output="screen" />
+
+</launch>
